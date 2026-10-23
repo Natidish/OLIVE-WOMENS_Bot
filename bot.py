@@ -226,8 +226,8 @@ async def main():
     await web.TCPSite(runner, "0.0.0.0", int(os.environ.get("PORT", 8080))).start()
     asyncio.create_task(reminders())
     empty = q1("select count(*) from members") == 0
-        try:
-        await bot.send_message(OWNER_ID, "🤖 Bot ተነስቷል።\n/stats • /members • /backup" +
+      try:
+         await bot.send_message(OWNER_ID, "🤖 Bot ተነስቷል።\n/stats • /members • /backup" +
             ("\n\n⚠️ Database ባዶ ነው። ዳታ ከጠፋ የመጨረሻውን backup ፋይል በ caption «/restore» ይላኩ።" if empty else ""))
     except Exception as e:
         logging.warning("Owner notify failed (OWNER_ID ወይም /start ያረጋግጡ): %s", e)
