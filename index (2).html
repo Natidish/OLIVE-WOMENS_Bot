@@ -2,90 +2,107 @@
 <html lang="am"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<title>Women's Gym</title>
+<title>OLIVE Women's Wellness</title>
 <style>
-:root{--bg:#120c14;--card:#1e1424;--line:#3a2742;--pink:#ff4f9a;--gold:#f5c26b;--tx:#fff;--mut:#b9a6c2}
-*{box-sizing:border-box;margin:0;font-family:system-ui,"Noto Sans Ethiopic",sans-serif}
-body{background:var(--bg);color:var(--tx);padding:0 16px 90px}
-.hero{margin:0 -16px 18px;padding:34px 20px 28px;text-align:center;background:radial-gradient(circle at 50% 0,#6b1f52,#120c14 75%)}
-.hero h1{font-size:28px;background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;color:transparent}
-.hero p{color:var(--mut);margin-top:6px;font-size:14px}
-.tabs{display:flex;background:var(--card);border-radius:14px;padding:4px;margin-bottom:14px}
-.tabs button{flex:1;padding:11px;border:0;border-radius:11px;background:none;color:var(--mut);font-size:15px;font-weight:600}
-.tabs button.on{background:linear-gradient(90deg,var(--pink),#b83280);color:#fff}
-.tabs button.vip.on{background:linear-gradient(90deg,var(--gold),#d9962b);color:#2a1a00}
-.plan{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:10px}
-.plan b{font-size:17px}.plan small{color:var(--mut);display:block;margin-top:3px}
-.price{font-size:19px;font-weight:700;color:var(--gold)}
-.plan.sel{border-color:var(--pink);box-shadow:0 0 0 1px var(--pink)}
-.btn{display:block;width:100%;padding:15px;border:0;border-radius:14px;background:linear-gradient(90deg,var(--pink),#b83280);color:#fff;font-size:16px;font-weight:700;margin-top:14px;text-align:center;text-decoration:none}
-.btn.ghost{background:var(--card);border:1px solid var(--line)}
-input{width:100%;padding:14px;margin-top:10px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:#fff;font-size:15px}
+:root{--bg:#0f140d;--card:#1a2217;--line:#34422d;--olive:#8fae4a;--olive2:#5f7a2c;--gold:#e6c378;--tx:#f6f3e8;--mut:#a9b49d}
+*{box-sizing:border-box;margin:0;font-family:Georgia,"Noto Sans Ethiopic",system-ui,serif}
+body{background:var(--bg);color:var(--tx);padding:0 16px 96px;padding-top:env(safe-area-inset-top,0px)}
+.hero{margin:0 -16px 16px;padding:34px 18px 26px;text-align:center;background:radial-gradient(circle at 50% -10%,#41571f,#0f140d 72%)}
+.hero small{letter-spacing:3px;color:var(--gold);font-size:11px}
+.hero h1{font-size:25px;margin-top:8px;letter-spacing:1px}
+.hero p{color:var(--mut);margin-top:8px;font-size:13px;font-style:italic}
+.promo{display:flex;gap:8px;margin-bottom:14px}
+.promo div{flex:1;background:linear-gradient(135deg,#2a3a1c,#1a2217);border:1px solid var(--olive2);border-radius:14px;padding:10px;font-size:12px;color:var(--gold);text-align:center;line-height:1.4}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;padding-bottom:2px}
+.tabs button{flex:1 0 auto;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--mut);font-size:13px;font-weight:700;white-space:nowrap}
+.tabs button.on{background:linear-gradient(90deg,var(--olive),var(--olive2));color:#10170a;border-color:transparent}
+.desc{color:var(--mut);font-size:13px;line-height:1.5;margin-bottom:12px}
+.badge{display:inline-block;background:var(--gold);color:#2a1d00;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;margin-bottom:8px}
+.plan{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;margin-bottom:10px}
+.plan.sel{border-color:var(--olive);box-shadow:0 0 0 1px var(--olive)}
+.plan b{font-size:16px}.plan small{display:block;color:var(--mut);margin-top:3px;font-size:12px}
+.save{color:var(--olive);font-weight:700}.price{font-size:18px;font-weight:700;color:var(--gold);text-align:right}
+ul.f{list-style:none;background:var(--card);border-radius:16px;padding:12px 14px;margin:4px 0 4px;border:1px dashed var(--line)}
+ul.f li{font-size:13px;padding:5px 0;color:#dfe6d2}ul.f li:before{content:"✓ ";color:var(--olive);font-weight:800}
+.btn{display:block;width:100%;padding:15px;border:0;border-radius:14px;background:linear-gradient(90deg,var(--olive),var(--olive2));color:#10170a;font-size:16px;font-weight:800;margin-top:14px}
+.btn.ghost{background:var(--card);color:var(--tx);border:1px solid var(--line)}.btn:disabled{opacity:.6}
 label{display:block;margin-top:14px;color:var(--mut);font-size:13px}
+input{width:100%;padding:14px;margin-top:6px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:#fff;font-size:15px}
+.hint{font-size:12px;color:var(--gold);margin-top:6px}
 .box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:10px}
-.box p{margin:4px 0}.copy{color:var(--pink);font-weight:700}
-.bar{position:fixed;bottom:0;left:0;right:0;display:flex;background:#1a111f;border-top:1px solid var(--line);padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px))}
-.bar a,.bar button{flex:1;text-align:center;color:var(--mut);font-size:12px;text-decoration:none;background:none;border:0}
-.bar span{display:block;font-size:20px}.hide{display:none}
-h2{margin:6px 0 4px}.done{text-align:center;padding:60px 10px}.done div{font-size:64px}
+.box p{margin:4px 0}.copy{color:var(--olive);font-weight:700;font-size:17px}
+.bar{position:fixed;bottom:0;left:0;right:0;display:flex;background:#141b11;border-top:1px solid var(--line);padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px))}
+.bar a{flex:1;text-align:center;color:var(--mut);font-size:12px;text-decoration:none}.bar span{display:block;font-size:20px}
+.hide{display:none}h2{margin:4px 0}.done{text-align:center;padding:50px 10px}.done div{font-size:64px}
 </style></head><body>
-<div class="hero"><h1 id="gname">…</h1><p>💪 ጤናዎን፣ ውበትዎን፣ ብርታትዎን እዚህ ይገንቡ</p></div>
-
+<div class="hero"><small>PREMIUM ALL-FEMALE STUDIO</small><h1>OLIVE WOMEN'S WELLNESS</h1><p>Body Sculpting • Meal Guidance • Lifestyle Center</p></div>
+ 
 <section id="s1">
- <div class="tabs"><button id="tR" class="on" onclick="tab('regular')">🌸 መደበኛ</button><button id="tV" class="vip" onclick="tab('vip')">👑 VIP</button></div>
- <div id="plans"></div>
+ <div class="promo"><div>🎁 አዲስ አባል<br>First-Day Consultation ነፃ</div><div id="gd">👭 5+ አባላት<br>+10% ቅናሽ</div></div>
+ <div class="tabs" id="tabs"></div>
+ <div id="pinfo"></div><div id="plans"></div><ul class="f" id="feat"></ul>
  <button class="btn" onclick="go(2)">ቀጥል ➜</button>
 </section>
-
+ 
 <section id="s2" class="hide">
  <h2>📝 ምዝገባ</h2>
  <label>ሙሉ ስም</label><input id="name" autocomplete="name">
  <label>ስልክ ቁጥር</label><input id="phone" type="tel">
  <label>እድሜ</label><input id="age" type="number" inputmode="numeric">
+ <label>የሚመዘገቡ ሰዎች ብዛት</label><input id="people" type="number" inputmode="numeric" value="1" min="1" oninput="upd()">
+ <div class="hint" id="dh"></div>
  <button class="btn" onclick="toPay()">ወደ ክፍያ ➜</button>
  <button class="btn ghost" onclick="go(1)">← ተመለስ</button>
 </section>
-
+ 
 <section id="s3" class="hide">
  <h2>💳 ክፍያ</h2>
- <div class="box"><p id="sum"></p></div>
- <div id="accs"></div>
- <label>የክፍያ ደረሰኝ ፎቶ (screenshot) ይላኩ</label>
- <input id="rc" type="file" accept="image/*">
+ <div class="box"><p id="sum"></p></div><div id="accs"></div>
+ <label>የክፍያ ደረሰኝ ፎቶ (screenshot) ያያይዙ</label><input id="rc" type="file" accept="image/*">
  <button class="btn" id="send" onclick="submit()">ደረሰኝ ላክ ✅</button>
  <button class="btn ghost" onclick="go(2)">← ተመለስ</button>
 </section>
-
-<section id="s4" class="hide done"><div>🌸</div><h2>አመሰግናለሁ!</h2>
- <p style="color:var(--mut);margin-top:8px">ደረሰኝዎ ተልኳል። ባለቤቱ አረጋግጦ በ bot መልዕክት ይልክልዎታል።</p>
+ 
+<section id="s4" class="hide done"><div>🌿</div><h2>አመሰግናለሁ!</h2>
+ <p style="color:var(--mut);margin-top:8px;line-height:1.5">ደረሰኝዎ ተልኳል። ባለቤቱ አረጋግጦ በ bot መልዕክት ይልክልዎታል።</p>
  <button class="btn" onclick="tg.close()">ዝጋ</button></section>
-
-<nav class="bar"><a id="call"><span>📞</span>ደውል</a><a id="map"><span>📍</span>አድራሻ</a><a id="sup"><span>🛟</span>ድጋፍ</a></nav>
-
+ 
+<nav class="bar"><a id="call"><span>📞</span>ደውል</a><a id="map" href="#"><span>📍</span>አድራሻ</a><a id="sup" href="#"><span>🛟</span>ድጋፍ</a></nav>
+ 
 <script>
 const tg=Telegram.WebApp;tg.ready();tg.expand();
-let C,plan='regular',months=1;
-const $=i=>document.getElementById(i);
+const $=i=>document.getElementById(i);let C,pkg='group',months=1;
+const price=()=>{const b=C.packages[pkg].prices[months],d=C.discount,p=+$('people').value||1;
+ return p>=d.min&&d.packages.includes(pkg)?Math.round(b*(100-d.pct)/100):b};
 fetch('/api/config').then(r=>r.json()).then(d=>{C=d;
- $('gname').textContent=C.gym.name;
  $('call').href='tel:'+C.gym.phone;
- $('map').onclick=e=>{e.preventDefault();tg.openLink(C.gym.map)};$('map').href='#';
- $('sup').onclick=e=>{e.preventDefault();tg.openTelegramLink('https://t.me/'+C.gym.support)};$('sup').href='#';
- tab('regular')});
-function tab(p){plan=p;months=1;$('tR').className=p=='regular'?'on':'';$('tV').className='vip'+(p=='vip'?' on':'');
- $('plans').innerHTML=Object.entries(C.prices[p]).map(([m,pr])=>
- `<div class="plan ${m==months?'sel':''}" onclick="pick(${m})"><div><b>${p=='vip'?'👑 VIP':'🌸'} ${m} ወር</b><small>${(pr/m).toFixed(0)} ብር / በወር</small></div><div class="price">${pr.toLocaleString()} ብር</div></div>`).join('')}
-function pick(m){months=m;tab(plan);months=m;
- document.querySelectorAll('.plan').forEach((e,i)=>e.classList.toggle('sel',Object.keys(C.prices[plan])[i]==m))}
-function go(n){[1,2,3,4].forEach(i=>$('s'+i).classList.toggle('hide',i!=n));scrollTo(0,0)}
+ $('map').onclick=e=>{e.preventDefault();tg.openLink(C.gym.map)};
+ $('sup').onclick=e=>{e.preventDefault();tg.openTelegramLink('https://t.me/'+C.gym.support)};
+ $('gd').innerHTML=`👭 ${C.discount.min}+ አባላት<br>+${C.discount.pct}% ቅናሽ`;
+ $('tabs').innerHTML=Object.entries(C.packages).map(([k,p])=>`<button id="t_${k}" onclick="setPkg('${k}')">${p.icon} ${p.title.replace('All-Inclusive Personal Training','PT').replace(' Classes','')}</button>`).join('');
+ setPkg('group')});
+function setPkg(k){pkg=k;months=+Object.keys(C.packages[k].prices)[0];
+ Object.keys(C.packages).forEach(x=>$('t_'+x).className=x==k?'on':'');render()}
+function render(){const p=C.packages[pkg],pr=p.prices,one=pr[1]||0;
+ $('pinfo').innerHTML=(p.badge?`<span class="badge">${p.badge}</span>`:'')+`<div class="desc">${p.desc}</div>`;
+ $('plans').innerHTML=Object.entries(pr).map(([m,v])=>{m=+m;const mo=Math.round(v/m),sv=Math.floor((1-mo/one)*100);
+  return `<div class="plan ${m==months?'sel':''}" onclick="months=${m};render()"><div><b>${m} ${m==1?'Month':'Months'}</b>
+  <small>${p.sessions?p.sessions[m]+' Sessions + Full Gym Access':mo.toLocaleString()+' ETB / Month'} ${m>1&&sv>0&&!p.sessions?`<span class="save">• Save ${sv}%</span>`:''}</small></div>
+  <div class="price">${v.toLocaleString()}<br><small>ETB</small></div></div>`}).join('');
+ $('feat').innerHTML=p.features.map(f=>`<li>${f}</li>`).join('')}
+function upd(){const p=+$('people').value||1,d=C.discount;
+ $('dh').textContent=d.packages.includes(pkg)?(p>=d.min?`🎉 ${d.pct}% Group Discount ተተግብሯል! ክፍያ: ${price().toLocaleString()} ETB`:`${d.min}+ ሰው ከተመዘገበ ${d.pct}% ቅናሽ ያገኛል`):''}
+function go(n){if(n==2)upd();[1,2,3,4].forEach(i=>$('s'+i).classList.toggle('hide',i!=n));scrollTo(0,0)}
 function toPay(){if(!$('name').value.trim()||$('phone').value.trim().length<9)return tg.showAlert('ስም እና ትክክለኛ ስልክ ያስገቡ');
- $('sum').innerHTML=`📦 <b>${plan.toUpperCase()} • ${months} ወር</b><br>💰 <span class="price">${C.prices[plan][months].toLocaleString()} ብር</span>`;
+ const p=C.packages[pkg];
+ $('sum').innerHTML=`${p.icon} <b>${p.title}</b><br>📅 ${months} ${months==1?'Month':'Months'} • 👥 ${+$('people').value||1} ሰው<br>💰 <b style="color:var(--gold);font-size:20px">${price().toLocaleString()} ETB</b>`;
  $('accs').innerHTML=C.payments.map(a=>`<div class="box"><p><b>${a.bank}</b></p><p>${a.name}</p><p class="copy" onclick="navigator.clipboard.writeText('${a.acc}');tg.HapticFeedback.notificationOccurred('success')">${a.acc} 📋</p></div>`).join('');go(3)}
 async function submit(){const f=$('rc').files[0];if(!f)return tg.showAlert('የደረሰኝ ፎቶ ያያይዙ');
  const b=$('send');b.disabled=true;b.textContent='እየተላከ ነው…';
- const fd=new FormData();fd.append('initData',tg.initData);fd.append('plan',plan);fd.append('months',months);
- fd.append('name',$('name').value);fd.append('phone',$('phone').value);fd.append('age',$('age').value);fd.append('receipt',f);
- try{const r=await fetch('/api/order',{method:'POST',body:fd});const d=await r.json();
+ const fd=new FormData();fd.append('initData',tg.initData);fd.append('pkg',pkg);fd.append('months',months);
+ ['name','phone','age','people'].forEach(k=>fd.append(k,$(k).value));fd.append('receipt',f);
+ try{const r=await fetch('/api/order',{method:'POST',body:fd}),d=await r.json();
   if(d.ok)go(4);else{tg.showAlert(d.error=='duplicate'?'ይህ ደረሰኝ ቀድሞ ጥቅም ላይ ውሏል':'ስህተት ተፈጥሯል፣ እንደገና ይሞክሩ');b.disabled=false;b.textContent='ደረሰኝ ላክ ✅'}
  }catch(e){tg.showAlert('ግንኙነት ተቋርጧል');b.disabled=false;b.textContent='ደረሰኝ ላክ ✅'}}
 </script></body></html>
+ 
