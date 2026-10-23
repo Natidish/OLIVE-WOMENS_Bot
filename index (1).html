@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="am"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<title>Women's Gym</title>
+<style>
+:root{--bg:#120c14;--card:#1e1424;--line:#3a2742;--pink:#ff4f9a;--gold:#f5c26b;--tx:#fff;--mut:#b9a6c2}
+*{box-sizing:border-box;margin:0;font-family:system-ui,"Noto Sans Ethiopic",sans-serif}
+body{background:var(--bg);color:var(--tx);padding:0 16px 90px}
+.hero{margin:0 -16px 18px;padding:34px 20px 28px;text-align:center;background:radial-gradient(circle at 50% 0,#6b1f52,#120c14 75%)}
+.hero h1{font-size:28px;background:linear-gradient(90deg,var(--pink),var(--gold));-webkit-background-clip:text;color:transparent}
+.hero p{color:var(--mut);margin-top:6px;font-size:14px}
+.tabs{display:flex;background:var(--card);border-radius:14px;padding:4px;margin-bottom:14px}
+.tabs button{flex:1;padding:11px;border:0;border-radius:11px;background:none;color:var(--mut);font-size:15px;font-weight:600}
+.tabs button.on{background:linear-gradient(90deg,var(--pink),#b83280);color:#fff}
+.tabs button.vip.on{background:linear-gradient(90deg,var(--gold),#d9962b);color:#2a1a00}
+.plan{display:flex;justify-content:space-between;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:10px}
+.plan b{font-size:17px}.plan small{color:var(--mut);display:block;margin-top:3px}
+.price{font-size:19px;font-weight:700;color:var(--gold)}
+.plan.sel{border-color:var(--pink);box-shadow:0 0 0 1px var(--pink)}
+.btn{display:block;width:100%;padding:15px;border:0;border-radius:14px;background:linear-gradient(90deg,var(--pink),#b83280);color:#fff;font-size:16px;font-weight:700;margin-top:14px;text-align:center;text-decoration:none}
+.btn.ghost{background:var(--card);border:1px solid var(--line)}
+input{width:100%;padding:14px;margin-top:10px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:#fff;font-size:15px}
+label{display:block;margin-top:14px;color:var(--mut);font-size:13px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:10px}
+.box p{margin:4px 0}.copy{color:var(--pink);font-weight:700}
+.bar{position:fixed;bottom:0;left:0;right:0;display:flex;background:#1a111f;border-top:1px solid var(--line);padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px))}
+.bar a,.bar button{flex:1;text-align:center;color:var(--mut);font-size:12px;text-decoration:none;background:none;border:0}
+.bar span{display:block;font-size:20px}.hide{display:none}
+h2{margin:6px 0 4px}.done{text-align:center;padding:60px 10px}.done div{font-size:64px}
+</style></head><body>
+<div class="hero"><h1 id="gname">…</h1><p>💪 ጤናዎን፣ ውበትዎን፣ ብርታትዎን እዚህ ይገንቡ</p></div>
+
+<section id="s1">
+ <div class="tabs"><button id="tR" class="on" onclick="tab('regular')">🌸 መደበኛ</button><button id="tV" class="vip" onclick="tab('vip')">👑 VIP</button></div>
+ <div id="plans"></div>
+ <button class="btn" onclick="go(2)">ቀጥል ➜</button>
+</section>
+
+<section id="s2" class="hide">
+ <h2>📝 ምዝገባ</h2>
+ <label>ሙሉ ስም</label><input id="name" autocomplete="name">
+ <label>ስልክ ቁጥር</label><input id="phone" type="tel">
+ <label>እድሜ</label><input id="age" type="number" inputmode="numeric">
+ <button class="btn" onclick="toPay()">ወደ ክፍያ ➜</button>
+ <button class="btn ghost" onclick="go(1)">← ተመለስ</button>
+</section>
+
+<section id="s3" class="hide">
+ <h2>💳 ክፍያ</h2>
+ <div class="box"><p id="sum"></p></div>
+ <div id="accs"></div>
+ <label>የክፍያ ደረሰኝ ፎቶ (screenshot) ይላኩ</label>
+ <input id="rc" type="file" accept="image/*">
+ <button class="btn" id="send" onclick="submit()">ደረሰኝ ላክ ✅</button>
+ <button class="btn ghost" onclick="go(2)">← ተመለስ</button>
+</section>
+
+<section id="s4" class="hide done"><div>🌸</div><h2>አመሰግናለሁ!</h2>
+ <p style="color:var(--mut);margin-top:8px">ደረሰኝዎ ተልኳል። ባለቤቱ አረጋግጦ በ bot መልዕክት ይልክልዎታል።</p>
+ <button class="btn" onclick="tg.close()">ዝጋ</button></section>
+
+<nav class="bar"><a id="call"><span>📞</span>ደውል</a><a id="map"><span>📍</span>አድራሻ</a><a id="sup"><span>🛟</span>ድጋፍ</a></nav>
+
+<script>
+const tg=Telegram.WebApp;tg.ready();tg.expand();
+let C,plan='regular',months=1;
+const $=i=>document.getElementById(i);
+fetch('/api/config').then(r=>r.json()).then(d=>{C=d;
+ $('gname').textContent=C.gym.name;
+ $('call').href='tel:'+C.gym.phone;
+ $('map').onclick=e=>{e.preventDefault();tg.openLink(C.gym.map)};$('map').href='#';
+ $('sup').onclick=e=>{e.preventDefault();tg.openTelegramLink('https://t.me/'+C.gym.support)};$('sup').href='#';
+ tab('regular')});
+function tab(p){plan=p;months=1;$('tR').className=p=='regular'?'on':'';$('tV').className='vip'+(p=='vip'?' on':'');
+ $('plans').innerHTML=Object.entries(C.prices[p]).map(([m,pr])=>
+ `<div class="plan ${m==months?'sel':''}" onclick="pick(${m})"><div><b>${p=='vip'?'👑 VIP':'🌸'} ${m} ወር</b><small>${(pr/m).toFixed(0)} ብር / በወር</small></div><div class="price">${pr.toLocaleString()} ብር</div></div>`).join('')}
+function pick(m){months=m;tab(plan);months=m;
+ document.querySelectorAll('.plan').forEach((e,i)=>e.classList.toggle('sel',Object.keys(C.prices[plan])[i]==m))}
+function go(n){[1,2,3,4].forEach(i=>$('s'+i).classList.toggle('hide',i!=n));scrollTo(0,0)}
+function toPay(){if(!$('name').value.trim()||$('phone').value.trim().length<9)return tg.showAlert('ስም እና ትክክለኛ ስልክ ያስገቡ');
+ $('sum').innerHTML=`📦 <b>${plan.toUpperCase()} • ${months} ወር</b><br>💰 <span class="price">${C.prices[plan][months].toLocaleString()} ብር</span>`;
+ $('accs').innerHTML=C.payments.map(a=>`<div class="box"><p><b>${a.bank}</b></p><p>${a.name}</p><p class="copy" onclick="navigator.clipboard.writeText('${a.acc}');tg.HapticFeedback.notificationOccurred('success')">${a.acc} 📋</p></div>`).join('');go(3)}
+async function submit(){const f=$('rc').files[0];if(!f)return tg.showAlert('የደረሰኝ ፎቶ ያያይዙ');
+ const b=$('send');b.disabled=true;b.textContent='እየተላከ ነው…';
+ const fd=new FormData();fd.append('initData',tg.initData);fd.append('plan',plan);fd.append('months',months);
+ fd.append('name',$('name').value);fd.append('phone',$('phone').value);fd.append('age',$('age').value);fd.append('receipt',f);
+ try{const r=await fetch('/api/order',{method:'POST',body:fd});const d=await r.json();
+  if(d.ok)go(4);else{tg.showAlert(d.error=='duplicate'?'ይህ ደረሰኝ ቀድሞ ጥቅም ላይ ውሏል':'ስህተት ተፈጥሯል፣ እንደገና ይሞክሩ');b.disabled=false;b.textContent='ደረሰኝ ላክ ✅'}
+ }catch(e){tg.showAlert('ግንኙነት ተቋርጧል');b.disabled=false;b.textContent='ደረሰኝ ላክ ✅'}}
+</script></body></html>
