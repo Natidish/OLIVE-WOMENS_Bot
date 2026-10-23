@@ -23,7 +23,7 @@ DB_PATH  = os.environ.get("DB_PATH", "olive.db")
 GYM = {
     "name":    "OLIVE WOMEN'S WELLNESS",
     "tagline": "Premium All-Female Transformation Studio",
-    "phone":   os.environ.get("GYM_PHONE", "+251911000000"),
+    "phone":   os.environ.get("GYM_PHONE", "    try:"),
     "address": os.environ.get("GYM_ADDRESS", "Addis Ababa, Ethiopia"),
     "map":     os.environ.get("GYM_MAP", "https://maps.google.com/?q=9.0108,38.7613"),
     "support": os.environ.get("SUPPORT_USERNAME", "your_username"),   # ያለ @
@@ -226,8 +226,11 @@ async def main():
     await web.TCPSite(runner, "0.0.0.0", int(os.environ.get("PORT", 8080))).start()
     asyncio.create_task(reminders())
     empty = q1("select count(*) from members") == 0
-    await bot.send_message(OWNER_ID, "🤖 Bot ተነስቷል።\n/stats • /members • /backup" +
-        ("\n\n⚠️ Database ባዶ ነው። ዳታ ከጠፋ የመጨረሻውን backup ፋይል በ caption «/restore» ይላኩ።" if empty else ""))
+        try:
+        await bot.send_message(OWNER_ID, "🤖 Bot ተነስቷል።\n/stats • /members • /backup" +
+            ("\n\n⚠️ Database ባዶ ነው። ዳታ ከጠፋ የመጨረሻውን backup ፋይል በ caption «/restore» ይላኩ።" if empty else ""))
+    except Exception as e:
+        logging.warning("Owner notify failed (OWNER_ID ወይም /start ያረጋግጡ): %s", e)
     await dp.start_polling(bot)
  
 if __name__ == "__main__":
